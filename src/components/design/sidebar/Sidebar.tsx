@@ -1,10 +1,16 @@
 import Link from "next/link";
-import BookOpenIcon from "@/components/icons/sidebar/BookOpenIcon";
-import ClipboardCheckIcon from "@/components/icons/sidebar/ClipboardCheckIcon";
-import ClipboardListIcon from "@/components/icons/sidebar/ClipboardListIcon";
-import HomeIcon from "@/components/icons/sidebar/HomeIcon";
-import SettingsIcon from "@/components/icons/sidebar/SettingsIcon";
-import PlaneIcon from "@/components/icons/sidebar/PlaneIcon";
+import {
+  Calendar,
+  CalendarClock,
+  Euro,
+  FileQuestion,
+  Files,
+  HomeIcon,
+  PlaneIcon,
+  PlaneTakeoff,
+  Settings,
+  Users,
+} from "lucide-react";
 
 export type actualState = "dashboard" | "formation" | "pilotes" | "preparation-vols" | "settings";
 
@@ -20,28 +26,52 @@ const states = [
     icon: <HomeIcon className="h-4 w-4" />,
   },
   {
-    id: "formation",
+    id: "planning",
     link: "#",
-    name: "Formation",
-    icon: <BookOpenIcon className="h-4 w-4" />,
+    name: "Planning",
+    icon: <Calendar className="h-4 w-4" />,
   },
   {
-    id: "pilotes",
+    id: "trombinoscope",
     link: "#",
-    name: "Pilotes",
-    icon: <ClipboardListIcon className="h-4 w-4" />,
+    name: "Trombinoscope",
+    icon: <Users className="h-4 w-4" />,
   },
   {
-    id: "preparation-vols",
+    id: "schedule",
     link: "#",
-    name: "Préparation des vols",
-    icon: <ClipboardCheckIcon className="h-4 w-4" />,
+    name: "Réservations",
+    icon: <CalendarClock className="h-4 w-4" />,
+  },
+  {
+    id: "solde",
+    link: "#",
+    name: "Solde",
+    icon: <Euro className="h-4 w-4" />,
+  },
+  {
+    id: "flights",
+    link: "#",
+    name: "Mes vols",
+    icon: <PlaneTakeoff className="h-4 w-4" />,
+  },
+  {
+    id: "documents",
+    link: "#",
+    name: "Documents",
+    icon: <Files className="h-4 w-4" />,
+  },
+  {
+    id: "quiz",
+    link: "#",
+    name: "Quiz",
+    icon: <FileQuestion className="h-4 w-4" />,
   },
   {
     id: "settings",
     link: "#",
     name: "Paramètres",
-    icon: <SettingsIcon className="h-4 w-4" />,
+    icon: <Settings className="h-4 w-4" />,
   },
 ];
 

@@ -12,16 +12,16 @@ interface DashboardProps {
 
 export default function Dashboard({ children, actualState, headerOptions }: DashboardProps) {
   return (
-    <div className="grid h-screen w-full grid-cols-[280px_1fr]">
+    <div className="grid h-screen w-full lg:grid-cols-[280px_1fr] overflow-y-hidden">
       <Sidebar actualState={actualState} />
-      <div className="flex flex-col flex-1 overflow-y-auto">
+      <div className="flex flex-col flex-1 ">
         {!headerOptions?.disabled && (
           <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-muted/40 px-6">
             <h1 className="font-semibold text-lg">{headerOptions?.title}</h1>
             <div className="flex flex-1 items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">{headerOptions?.render}</div>
           </header>
         )}
-        {children}
+        <main className="p-4 overflow-y-auto flex-1 max-h-[calc(100vh-56px)]">{children}</main>
       </div>
     </div>
   );
