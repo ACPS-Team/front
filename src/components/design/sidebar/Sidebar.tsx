@@ -93,7 +93,9 @@ export default function Sidebar({ actualState }: SidebarProps) {
                 href={state.link}
                 className={
                   "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary " +
-                  (actualState === state.id ? "bg-muted text-primary" : "text-muted-foreground")
+                  (actualState === state.id
+                    ? "bg-muted text-primary border-l-4 border-primary "
+                    : "text-muted-foreground")
                 }
                 prefetch={false}
               >
