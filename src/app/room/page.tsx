@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { ResponsiveLine } from "@nivo/line";
 import ClipboardCheckIcon from "@/components/icons/sidebar/ClipboardCheckIcon";
+import Image from "next/image";
 
 export default function Room() {
   return (
@@ -88,7 +89,7 @@ export default function Room() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <img src="/placeholder.svg" width="32" height="32" className="rounded-full" alt="Avatar" />
+                  <Image src="/placeholder.svg" width="32" height="32" className="rounded-full" alt="Avatar" />
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
               </DropdownMenuTrigger>

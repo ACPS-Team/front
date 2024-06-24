@@ -3,7 +3,7 @@ import { AuthGuard } from "@/components/AuthGuard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Book, File, HelpCircle, LucideMessageCircleWarning, MailWarning, PlaneTakeoff, Video } from "lucide-react";
+import { Book, File, HelpCircle, LucideMessageCircleWarning, PlaneTakeoff, Video } from "lucide-react";
 import { Table, TableBody, TableCaption, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 
 function Home() {
