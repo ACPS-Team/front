@@ -12,7 +12,7 @@ import {
   Users,
 } from "lucide-react";
 
-export type actualState = "dashboard" | "formation" | "pilotes" | "preparation-vols" | "settings";
+export type actualState = "dashboard" | "organisation" | "settings";
 
 interface SidebarProps {
   actualState: actualState;
@@ -35,8 +35,8 @@ const states = [
         icon: <Calendar className="h-4 w-4" />,
       },
       {
-        id: "trombinoscope",
-        link: "#",
+        id: "organisation",
+        link: "organisation",
         name: "Trombinoscope",
         icon: <Users className="h-4 w-4" />,
       },
