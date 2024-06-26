@@ -11,6 +11,8 @@ import { Book, File, HelpCircle, LucideMessageCircleWarning, PlaneTakeoff, Video
 import { Table, TableBody, TableCaption, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 
 function Home({ user }: Readonly<{ user: UserResource }>) {
+  const solde = 300;
+
   return (
     <Dashboard
       actualState="dashboard"
@@ -21,17 +23,17 @@ function Home({ user }: Readonly<{ user: UserResource }>) {
       <h1 className="text-3xl font-semibold mb-6 mt-2">Bienvenue, {user.firstName}</h1>
       <div className="flex w-[100%] justify-between">
         <div className="grid grid-cols-2 gap-8 w-[100%] lg:w-[70%]">
-          <Card className="bg-gradient-to-br from-sky-200 from-0% to-white to-85%">
+          <Card className={`bg-gradient-to-br from-${solde >= 0 ? "sky" : "red"}-200 from-0% to-white to-85%`}>
             <CardHeader>
               <CardTitle>Solde</CardTitle>
               <CardDescription>Solde de votre compte</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-center text-3xl font-semibold">300 €</p>
+              <p className="text-center text-3xl font-semibold">{solde} €</p>
               {/* <p>Derniers paiement: {new Date().toLocaleDateString()}</p> */}
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-red-200 from-0% to-white to-85%">
+          <Card className="bg-gradient-to-br from-slate-200 from-0% to-white to-85%">
             <CardHeader>
               <CardTitle className="flex gap-2">
                 <LucideMessageCircleWarning />
