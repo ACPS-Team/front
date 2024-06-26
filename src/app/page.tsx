@@ -1,3 +1,7 @@
+"use client";
+
+import type { UserResource } from "@clerk/types";
+
 import Dashboard from "@/components/Dashboard";
 import { AuthGuard } from "@/components/AuthGuard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Book, File, HelpCircle, LucideMessageCircleWarning, PlaneTakeoff, Video } from "lucide-react";
 import { Table, TableBody, TableCaption, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 
-function Home() {
+function Home({ user }: Readonly<{ user: UserResource }>) {
   return (
     <Dashboard
       actualState="dashboard"
@@ -14,9 +18,10 @@ function Home() {
         title: "Tableau de bord",
       }}
     >
+      <h1 className="text-3xl font-semibold mb-6 mt-2">Bienvenue, {user.firstName}</h1>
       <div className="flex w-[100%] justify-between">
-        <div className="grid grid-cols-2 gap-4 w-[100%] lg:w-[70%]">
-          <Card>
+        <div className="grid grid-cols-2 gap-8 w-[100%] lg:w-[70%]">
+          <Card className="bg-gradient-to-br from-sky-200 from-0% to-white to-85%">
             <CardHeader>
               <CardTitle>Solde</CardTitle>
               <CardDescription>Solde de votre compte</CardDescription>
@@ -26,7 +31,7 @@ function Home() {
               {/* <p>Derniers paiement: {new Date().toLocaleDateString()}</p> */}
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-gradient-to-br from-red-200 from-0% to-white to-85%">
             <CardHeader>
               <CardTitle className="flex gap-2">
                 <LucideMessageCircleWarning />
@@ -191,9 +196,5 @@ function Home() {
 }
 
 export default function AuthHome() {
-  return (
-    <AuthGuard>
-      <Home />
-    </AuthGuard>
-  );
+  return <AuthGuard render={Home} />;
 }
