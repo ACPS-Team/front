@@ -1,40 +1,40 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import Image from "next/image";
-import { useSignIn } from "@clerk/clerk-react";
+import { useSignIn } from '@clerk/clerk-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 export function SignIn() {
-  const { signIn, isLoaded } = useSignIn();
-  const [error, setError] = useState<string | null>(null);
-  console.log("error", error);
+  const { signIn, isLoaded } = useSignIn()
+  const [error, setError] = useState<string | null>(null)
+
   if (!isLoaded) {
-    return null;
+    return null
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const result = await signIn.create({
         identifier: e.currentTarget.email.value,
-        password: e.currentTarget.password.value,
-      });
-      if (result.status === "complete") {
-        console.log("Sign in successful");
-        window.location.reload();
-        return;
+        password: e.currentTarget.password.value
+      })
+      if (result.status === 'complete') {
+        console.log('Sign in successful')
+        window.location.reload()
+        return
       }
     } catch (err) {
-      console.error("Error during sign in", err);
+      console.error('Error during sign in', err)
     }
-    setError("Identifiants incorrects");
-  };
+    setError('Identifiants incorrects')
+  }
 
   return (
     <div className="w-full h-screen overflow-hidden lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
@@ -42,7 +42,9 @@ export function SignIn() {
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Se connecter</h1>
-            <p className="text-balance text-muted-foreground">Entre tes identifiants pour pouvoir te connecter</p>
+            <p className="text-balance text-muted-foreground">
+              Entre tes identifiants pour pouvoir te connecter
+            </p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4">
@@ -77,5 +79,5 @@ export function SignIn() {
         />
       </div>
     </div>
-  );
+  )
 }

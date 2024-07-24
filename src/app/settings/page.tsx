@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import { PhoneCall } from "lucide-react";
-import Image from "next/image";
-import type { UserResource } from "@clerk/types";
+import type { UserResource } from '@clerk/types'
+import { PhoneCall } from 'lucide-react'
+import Image from 'next/image'
 
-import Dashboard from "@/components/Dashboard";
-import { AuthGuard } from "@/components/AuthGuard";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
+import { AuthGuard } from '@/components/AuthGuard'
+import Dashboard from '@/components/Dashboard'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'
 
 function Settings({ user }: Readonly<{ user: UserResource }>) {
   return (
     <Dashboard
       actualState="settings"
       headerOptions={{
-        title: "Tableau de bord",
+        title: 'Paramètres'
       }}
     >
       <h1 className="text-3xl font-semibold mb-6 mt-2">Compte</h1>
@@ -23,7 +23,12 @@ function Settings({ user }: Readonly<{ user: UserResource }>) {
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             <div className="flex gap-4 items-center">
-              <Image src={user.hasImage ? user.imageUrl : "/placeholder.svg"} alt="avatar" width={75} height={75} />
+              <Image
+                src={user.hasImage ? user.imageUrl : '/placeholder.svg'}
+                alt="avatar"
+                width={75}
+                height={75}
+              />
               {user.firstName} {user.lastName}
             </div>
             <div>
@@ -43,31 +48,31 @@ function Settings({ user }: Readonly<{ user: UserResource }>) {
             </div>
             <div>
               <p>Date de naissance</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Lieu de naissance</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Nationnalité</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Adresse</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Ville</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Pays</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
             <div>
               <p>Code postal</p>
-              <p>{""}</p>
+              <p>{''}</p>
             </div>
           </div>
         </CardContent>
@@ -101,9 +106,9 @@ function Settings({ user }: Readonly<{ user: UserResource }>) {
         </CardContent>
       </Card>
     </Dashboard>
-  );
+  )
 }
 
 export default function AuthSettings() {
-  return <AuthGuard render={Settings} />;
+  return <AuthGuard render={Settings} />
 }

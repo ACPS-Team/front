@@ -1,5 +1,5 @@
-import Link from "next/link";
 import {
+  Book,
   Calendar,
   CalendarClock,
   Euro,
@@ -9,13 +9,14 @@ import {
   PlaneIcon,
   PlaneTakeoff,
   Settings,
-  Users,
-} from "lucide-react";
+  Users
+} from 'lucide-react'
+import Link from 'next/link'
 
-export type actualState = "dashboard" | "organisation" | "settings";
+export type actualState = 'dashboard' | 'organisation' | 'settings' | 'lessons' | 'documents'
 
 interface SidebarProps {
-  actualState: actualState;
+  actualState: actualState
 }
 
 const states = [
@@ -23,68 +24,74 @@ const states = [
     id: 0,
     items: [
       {
-        id: "dashboard",
-        link: "/",
-        name: "Tableau de bord",
-        icon: <HomeIcon className="h-4 w-4" />,
+        id: 'dashboard',
+        link: '/',
+        name: 'Tableau de bord',
+        icon: <HomeIcon className="h-4 w-4" />
       },
       {
-        id: "planning",
-        link: "#",
-        name: "Planning",
-        icon: <Calendar className="h-4 w-4" />,
+        id: 'lessons',
+        link: '/lessons',
+        name: 'Cours',
+        icon: <Book className="h-4 w-4" />
       },
       {
-        id: "organisation",
-        link: "organisation",
-        name: "Trombinoscope",
-        icon: <Users className="h-4 w-4" />,
+        id: 'planning',
+        link: '#',
+        name: 'Planning',
+        icon: <Calendar className="h-4 w-4" />
+      },
+
+      {
+        id: 'schedule',
+        link: '#',
+        name: 'Réservations',
+        icon: <CalendarClock className="h-4 w-4" />
+      },
+
+      {
+        id: 'flights',
+        link: '#',
+        name: 'Mes vols',
+        icon: <PlaneTakeoff className="h-4 w-4" />
       },
       {
-        id: "schedule",
-        link: "#",
-        name: "Réservations",
-        icon: <CalendarClock className="h-4 w-4" />,
-      },
-      {
-        id: "solde",
-        link: "#",
-        name: "Solde",
-        icon: <Euro className="h-4 w-4" />,
-      },
-      {
-        id: "flights",
-        link: "#",
-        name: "Mes vols",
-        icon: <PlaneTakeoff className="h-4 w-4" />,
-      },
-      {
-        id: "quiz",
-        link: "#",
-        name: "Quiz",
-        icon: <FileQuestion className="h-4 w-4" />,
-      },
-    ],
+        id: 'quiz',
+        link: '#',
+        name: 'Quiz',
+        icon: <FileQuestion className="h-4 w-4" />
+      }
+    ]
   },
   {
     id: 1,
     items: [
       {
-        id: "documents",
-        link: "#",
-        name: "Documents",
-        icon: <Files className="h-4 w-4" />,
+        id: 'organisation',
+        link: 'organisation',
+        name: 'Trombinoscope',
+        icon: <Users className="h-4 w-4" />
       },
-    ],
+      {
+        id: 'documents',
+        link: 'documents',
+        name: 'Documents',
+        icon: <Files className="h-4 w-4" />
+      }
+    ]
   },
-
-  // {
-  //   id: "settings",
-  //   link: "#",
-  //   name: "Paramètres",
-  //   icon: <Settings className="h-4 w-4" />,
-  // },
-];
+  {
+    id: 2,
+    items: [
+      {
+        id: 'solde',
+        link: '#',
+        name: 'Solde',
+        icon: <Euro className="h-4 w-4" />
+      }
+    ]
+  }
+]
 
 export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
   return (
@@ -101,15 +108,15 @@ export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
             <div className="">
               {states.map((state, index) => (
                 <div key={state.id}>
-                  {state.items.map((item) => (
+                  {state.items.map(item => (
                     <Link
                       key={item.id}
                       href={item.link}
                       className={
-                        "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary " +
+                        'flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ' +
                         (actualState === item.id
-                          ? "bg-muted text-primary border-l-4 border-primary "
-                          : "text-muted-foreground")
+                          ? 'bg-muted text-primary border-l-4 border-primary '
+                          : 'text-muted-foreground')
                       }
                       prefetch={false}
                     >
@@ -117,7 +124,9 @@ export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
                       {item.name}
                     </Link>
                   ))}
-                  {index + 1 < states.length && <hr className="my-2 h-[2px] bg-gray-200 w-[80%] mx-auto" />}
+                  {index + 1 < states.length && (
+                    <hr className="my-2 h-[2px] bg-gray-200 w-[80%] mx-auto" />
+                  )}
                 </div>
               ))}
             </div>
@@ -125,10 +134,10 @@ export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
               <Link
                 href="/settings"
                 className={
-                  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary " +
-                  (actualState === "settings"
-                    ? "bg-muted text-primary border-l-4 border-primary "
-                    : "text-muted-foreground")
+                  'flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ' +
+                  (actualState === 'settings'
+                    ? 'bg-muted text-primary border-l-4 border-primary '
+                    : 'text-muted-foreground')
                 }
                 prefetch={false}
               >
@@ -140,5 +149,5 @@ export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
         </div>
       </div>
     </div>
-  );
+  )
 }
