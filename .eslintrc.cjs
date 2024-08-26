@@ -26,7 +26,7 @@ module.exports = {
         printWidth: 100,
         trailingComma: 'none',
         arrowParens: 'avoid',
-        endOfLine: 'auto'
+        endOfLine: 'auto',
       }
     ],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],

@@ -87,12 +87,10 @@ function Settings({ user }: Readonly<{ user: UserResource }>) {
         <CardContent>
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableCell>Nom</TableCell>
-                <TableCell>Prénom</TableCell>
-                <TableCell>Titre</TableCell>
-                <TableCell>n°tel</TableCell>
-              </TableRow>
+              <TableCell>Nom</TableCell>
+              <TableCell>Prénom</TableCell>
+              <TableCell>Titre</TableCell>
+              <TableCell>n°tel</TableCell>
             </TableHeader>
             <TableBody>
               <TableRow>

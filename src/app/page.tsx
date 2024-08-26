@@ -77,14 +77,12 @@ function Home({ user }: Readonly<{ user: UserResource }>) {
                   </Link>
                 </TableCaption>
                 <TableHeader>
-                  <TableRow>
-                    <TableCell>Machine</TableCell>
-                    <TableCell>Pilote</TableCell>
-                    <TableCell>Instructeur</TableCell>
-                    <TableCell>Temps est.</TableCell>
-                    <TableCell>Départ</TableCell>
-                    <TableCell>Arrivé</TableCell>
-                  </TableRow>
+                  <TableCell>Machine</TableCell>
+                  <TableCell>Pilote</TableCell>
+                  <TableCell>Instructeur</TableCell>
+                  <TableCell>Temps est.</TableCell>
+                  <TableCell>Départ</TableCell>
+                  <TableCell>Arrivé</TableCell>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
@@ -109,13 +107,11 @@ function Home({ user }: Readonly<{ user: UserResource }>) {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableCell>Machine</TableCell>
-                    <TableCell>Pilote</TableCell>
-                    <TableCell>Instructeur</TableCell>
-                    <TableCell>Temps est.</TableCell>
-                    <TableCell>Retard</TableCell>
-                  </TableRow>
+                  <TableCell>Machine</TableCell>
+                  <TableCell>Pilote</TableCell>
+                  <TableCell>Instructeur</TableCell>
+                  <TableCell>Temps est.</TableCell>
+                  <TableCell>Retard</TableCell>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
@@ -139,13 +135,11 @@ function Home({ user }: Readonly<{ user: UserResource }>) {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableCell>Machine</TableCell>
-                    <TableCell>Pilote</TableCell>
-                    <TableCell>Instructeur</TableCell>
-                    <TableCell>Temps est.</TableCell>
-                    <TableCell>Retard</TableCell>
-                  </TableRow>
+                  <TableCell>Machine</TableCell>
+                  <TableCell>Pilote</TableCell>
+                  <TableCell>Instructeur</TableCell>
+                  <TableCell>Temps est.</TableCell>
+                  <TableCell>Retard</TableCell>
                 </TableHeader>
                 <TableBody>
                   <TableRow>

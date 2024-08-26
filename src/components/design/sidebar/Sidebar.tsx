@@ -1,107 +1,34 @@
-import {
-  Book,
-  Calendar,
-  CalendarClock,
-  Euro,
-  FileQuestion,
-  Files,
-  HomeIcon,
-  PlaneIcon,
-  PlaneTakeoff,
-  Settings,
-  Users
-} from 'lucide-react'
+import { PlaneIcon, Settings, X } from 'lucide-react'
 import Link from 'next/link'
 
-export type actualState = 'dashboard' | 'organisation' | 'settings' | 'lessons' | 'documents'
+import { actualState, states } from '@/types/sidebar'
 
 interface SidebarProps {
   actualState: actualState
+  isMobileMenuOpen: boolean
+  toggleMobileMenu: () => void
 }
 
-const states = [
-  {
-    id: 0,
-    items: [
-      {
-        id: 'dashboard',
-        link: '/',
-        name: 'Tableau de bord',
-        icon: <HomeIcon className="h-4 w-4" />
-      },
-      {
-        id: 'lessons',
-        link: '/lessons',
-        name: 'Cours',
-        icon: <Book className="h-4 w-4" />
-      },
-      {
-        id: 'planning',
-        link: '#',
-        name: 'Planning',
-        icon: <Calendar className="h-4 w-4" />
-      },
-
-      {
-        id: 'schedule',
-        link: '#',
-        name: 'Réservations',
-        icon: <CalendarClock className="h-4 w-4" />
-      },
-
-      {
-        id: 'flights',
-        link: '#',
-        name: 'Mes vols',
-        icon: <PlaneTakeoff className="h-4 w-4" />
-      },
-      {
-        id: 'quiz',
-        link: '#',
-        name: 'Quiz',
-        icon: <FileQuestion className="h-4 w-4" />
-      }
-    ]
-  },
-  {
-    id: 1,
-    items: [
-      {
-        id: 'organisation',
-        link: 'organisation',
-        name: 'Trombinoscope',
-        icon: <Users className="h-4 w-4" />
-      },
-      {
-        id: 'documents',
-        link: 'documents',
-        name: 'Documents',
-        icon: <Files className="h-4 w-4" />
-      }
-    ]
-  },
-  {
-    id: 2,
-    items: [
-      {
-        id: 'solde',
-        link: '#',
-        name: 'Solde',
-        icon: <Euro className="h-4 w-4" />
-      }
-    ]
-  }
-]
-
-export default function Sidebar({ actualState }: Readonly<SidebarProps>) {
+export default function Sidebar({
+  actualState,
+  isMobileMenuOpen,
+  toggleMobileMenu
+}: Readonly<SidebarProps>) {
+  console.log('SidebarProps', isMobileMenuOpen)
   return (
-    <div className="hidden border-r bg-muted/40 lg:block">
+    <div
+      className={`border-r bg-muted fixed lg:relative h-full min-w-[50%] lg:min-w-[280px] z-50
+        transform ${isMobileMenuOpen ? 'translate-x-full' : 'translate-x-[200%]'}
+        lg:translate-x-0 transition-transform duration-300 ease-in-out lg:block`}
+    >
       <div className="flex flex-col gap-2 h-full">
         <div className="flex h-[60px] items-center px-6">
           <Link href="#" className="flex items-center gap-2 font-semibold" prefetch={false}>
             <PlaneIcon className="h-6 w-6" />
             <span className="">ACPS</span>
           </Link>
+
+          <X className="h-6 w-6 cursor-pointer ml-auto lg:hidden" onClick={toggleMobileMenu} />
         </div>
         <div className="flex-1 h-full">
           <nav className="px-4 pb-4 text-sm font-medium flex flex-col justify-between h-full">

@@ -4,10 +4,11 @@ import { Book, Plus } from 'lucide-react'
 
 import { AuthGuard } from '@/components/AuthGuard'
 import Dashboard from '@/components/Dashboard'
+import { TableCard } from '@/components/design/TableCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'
+import { TableCell, TableRow } from '@/components/ui/table'
 
 function Lessons() {
   const absences = 3
@@ -61,30 +62,18 @@ function Lessons() {
           </CardContent>
         </Card>
       </div>
-      <Card className="my-8">
-        <CardHeader>
-          <CardTitle className="flex gap-2">
-            <Book />
-            Mes cours passés
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell>Nom</TableCell>
-                <TableCell>Date</TableCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>Cours PPL</TableCell>
-                <TableCell>{new Date().toLocaleDateString()}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <TableCard
+        icon={<Book />}
+        title="Mes cours passés"
+        headers={['Nom', 'Date']}
+        isLoaded
+        rows={
+          <TableRow>
+            <TableCell>Cours PPL</TableCell>
+            <TableCell>{new Date().toLocaleDateString()}</TableCell>
+          </TableRow>
+        }
+      />
     </Dashboard>
   )
 }
