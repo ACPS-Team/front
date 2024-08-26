@@ -14,7 +14,6 @@ export default function Sidebar({
   isMobileMenuOpen,
   toggleMobileMenu
 }: Readonly<SidebarProps>) {
-  console.log('SidebarProps', isMobileMenuOpen)
   return (
     <div
       className={`border-r bg-muted fixed lg:relative h-full min-w-[50%] lg:min-w-[280px] z-50
