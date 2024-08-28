@@ -6,9 +6,10 @@ import Image from 'next/image'
 
 import { AuthGuard } from '@/components/AuthGuard'
 import Dashboard from '@/components/Dashboard'
+import { TableCard } from '@/components/design/TableCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'
+import { TableCell, TableRow } from '@/components/ui/table'
 
 function Settings({ user }: Readonly<{ user: UserResource }>) {
   return (
@@ -77,32 +78,19 @@ function Settings({ user }: Readonly<{ user: UserResource }>) {
           </div>
         </CardContent>
       </Card>
-      <Card className="my-8">
-        <CardHeader>
-          <CardTitle className="flex gap-2">
-            <PhoneCall />
-            Personnes à contacter en cas d&apos;urgence
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableCell>Nom</TableCell>
-              <TableCell>Prénom</TableCell>
-              <TableCell>Titre</TableCell>
-              <TableCell>n°tel</TableCell>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>Mich</TableCell>
-                <TableCell>La</TableCell>
-                <TableCell>PPL</TableCell>
-                <TableCell>099999999</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <TableCard
+        icon={<PhoneCall />}
+        title="Personnes à contacter"
+        headers={['Nom', 'Prénom', 'Titre', 'n°tel']}
+        rows={
+          <TableRow>
+            <TableCell>Mich</TableCell>
+            <TableCell>La</TableCell>
+            <TableCell>PPL</TableCell>
+            <TableCell>099999999</TableCell>
+          </TableRow>
+        }
+      />
     </Dashboard>
   )
 }

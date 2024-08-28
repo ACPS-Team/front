@@ -70,7 +70,7 @@ function Organisation() {
         title: 'Trombinoscope'
       }}
     >
-      <div className="flex items-center gap-4 justify-between">
+      <div className="flex flex-wrap items-center gap-4 justify-between">
         <Input
           placeholder="Rechercher une personne..."
           className="max-w-[450px]"
@@ -101,7 +101,7 @@ function Organisation() {
           </DropdownMenu>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-4 my-8">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8">
         {users
           .filter(user => {
             if (search.length > 0) {
@@ -114,7 +114,7 @@ function Organisation() {
             return user.group === selectedGroup
           })
           .map(user => (
-            <Card key={user.id}>
+            <Card key={user.id} className="min-w-48">
               <CardHeader className="flex flex-col items-center justify-center">
                 <Image
                   src="/placeholder.svg"

@@ -7,14 +7,13 @@ import Dashboard from '@/components/Dashboard'
 import { TableCard } from '@/components/design/TableCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { TableCell, TableRow } from '@/components/ui/table'
 
 function Lessons() {
   const absences = 3
 
-  const handleJoinCourse = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleAddToCalendar = () => {
+    console.log('Add to calendar')
   }
 
   return (
@@ -31,16 +30,18 @@ function Lessons() {
           Créer un cours
         </Button>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="flex flex-col gap-4 sm:grid sm:grid-cols-3 ">
         <Card>
           <CardHeader>
-            <CardTitle>Rejoindre un cours</CardTitle>
+            <CardTitle>Prochain cours</CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleJoinCourse} className="flex flex-col items-center gap-4">
-              <Input placeholder="Code du cours" />
-              <Button size="sm">Rejoindre</Button>
-            </form>
+          <CardContent className="flex flex-col items-center">
+            <p>{new Date().toLocaleDateString()}</p>
+            <p>à</p>
+            <p>{new Date().toLocaleTimeString()}</p>
+            <Button className="mt-4" onClick={handleAddToCalendar}>
+              Ajouter à mon agenda
+            </Button>
           </CardContent>
         </Card>
         <Card className={`bg-gradient-to-br from-${absences > 0 ? 'red' : 'slate'}-200`}>

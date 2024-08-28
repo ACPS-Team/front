@@ -7,6 +7,7 @@ interface TableCardProps {
   headers: string[]
   rows: JSX.Element
   isLoaded?: boolean
+  cardStyle?: string
 }
 
 export function TableCard({
@@ -14,11 +15,11 @@ export function TableCard({
   title,
   headers,
   rows,
-  isLoaded = false
+  isLoaded = false,
+  cardStyle = ''
 }: Readonly<TableCardProps>) {
-  console.log(icon, title, headers, rows, isLoaded)
   return (
-    <Card className="my-8">
+    <Card className={`my-8 ${cardStyle}`}>
       <CardHeader>
         <CardTitle className="flex gap-2">
           {icon}

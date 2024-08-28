@@ -127,7 +127,7 @@ function Documents() {
         title: 'Documents'
       }}
     >
-      <div className="flex items-center gap-4 justify-between">
+      <div className="flex flex-wrap items-center gap-4 justify-between">
         <Input
           placeholder="Rechercher un document..."
           className="max-w-[450px]"
@@ -191,7 +191,7 @@ function Documents() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-4 my-8">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8">
         {filteredDocuments.map(document => (
           <Card key={document.id}>
             <CardHeader className="flex flex-col items-center justify-center">

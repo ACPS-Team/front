@@ -45,7 +45,7 @@ export default function Dashboard({
             </button>
           </header>
         )}
-        <main className="p-4 overflow-y-auto flex-1 max-h-[calc(100vh-56px)] ">
+        <main className="p-4 overflow-y-auto flex-1 max-h-[calc(100vh-56px)] max-w-[100vw]">
           <div className="mx-auto w-full max-w-screen-lg">{children}</div>
         </main>
       </div>

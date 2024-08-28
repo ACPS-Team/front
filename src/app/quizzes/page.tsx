@@ -17,8 +17,6 @@ function Quizzes() {
   const { data: quizzes, isLoading: quizzesLoading } = useGraphQL(GET_QUIZZES)
   const { data: quizResults, isLoading: quizResultsLoading } = useGraphQL(GET_QUIZ_RESULTS)
 
-  console.log(quizzes, quizzesLoading)
-
   const QuizRows = useMemo(
     () => (
       <>
@@ -32,8 +30,6 @@ function Quizzes() {
     ),
     [quizzes]
   )
-
-  console.log(QuizRows)
 
   const QuizResultsRows = useMemo(
     () => (
@@ -64,7 +60,7 @@ function Quizzes() {
           Créer un quiz
         </Button>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="flex flex-col gap-4 sm:grid sm:grid-cols-3 ">
         <Card>
           <CardHeader>
             <CardTitle>Quiz disponible</CardTitle>

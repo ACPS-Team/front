@@ -16,7 +16,7 @@ function Flights() {
         title: 'Mes vols'
       }}
     >
-      <div className="grid grid-cols-3 gap-4">
+      <div className="flex flex-col gap-4 sm:grid sm:grid-cols-3 ">
         <Card>
           <CardHeader>
             <CardTitle>Envie d&apos;un vol ?</CardTitle>
