@@ -1,14 +1,4 @@
-import {
-  Book,
-  Calendar,
-  CalendarClock,
-  Euro,
-  FileQuestion,
-  Files,
-  Home,
-  PlaneTakeoff,
-  Users
-} from 'lucide-react'
+import { Book, Calendar, Euro, FileQuestion, Files, Home, PlaneTakeoff, Users } from 'lucide-react'
 
 export type actualState =
   | 'dashboard'
@@ -18,7 +8,6 @@ export type actualState =
   | 'documents'
   | 'quizzes'
   | 'planning'
-  | 'schedule'
   | 'flights'
   | 'solde'
 
@@ -44,14 +33,6 @@ export const states = [
         name: 'Planning',
         icon: <Calendar className="h-4 w-4" />
       },
-
-      {
-        id: 'schedule',
-        link: '/schedule',
-        name: 'Réservations',
-        icon: <CalendarClock className="h-4 w-4" />
-      },
-
       {
         id: 'flights',
         link: '/flights',
@@ -88,7 +69,7 @@ export const states = [
     items: [
       {
         id: 'solde',
-        link: '#',
+        link: 'solde',
         name: 'Solde',
         icon: <Euro className="h-4 w-4" />
       }

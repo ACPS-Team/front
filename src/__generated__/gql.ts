@@ -20,6 +20,16 @@ const documents = {
     "\n    mutation DeleteQuiz($id: String!) {\n        deleteQuiz(id: $id)\n    }\n": types.DeleteQuizDocument,
     "\n    mutation CreateQuizResult($data: CreateQuizResultDto!) {\n        createQuizResult(data: $data) {\n            id\n            score\n            quiz {\n                id\n                name\n            }\n        }\n    }\n": types.CreateQuizResultDocument,
     "\n    query GetQuizResults {\n        getQuizResults {\n            id\n            score\n            quiz {\n                id\n                name\n                # module {\n                #     id\n                #     name\n                # }\n            }\n            createdAt\n        }\n    }\n": types.GetQuizResultsDocument,
+    "\n    query GetAllReservations {\n        getAllReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": types.GetAllReservationsDocument,
+    "\n    query GetMyReservations {\n        getMyReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": types.GetMyReservationsDocument,
+    "\n    mutation CreateReservation($data: CreateReservationDto!) {\n        createReservation(data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": types.CreateReservationDocument,
+    "\n    mutation UpdateReservation($id: String!, $data: UpdateReservationDto!) {\n        updateReservation(id: $id, data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": types.UpdateReservationDocument,
+    "\n    mutation DeleteReservation($id: String!) {\n        deleteReservation(id: $id)\n    }\n": types.DeleteReservationDocument,
+    "\n    query GetAllResources {\n        getAllResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": types.GetAllResourcesDocument,
+    "\n    query GetMyResources {\n        getMyResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": types.GetMyResourcesDocument,
+    "\n    mutation CreateResource($data: CreateResourceDto!) {\n        createResource(data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": types.CreateResourceDocument,
+    "\n    mutation UpdateResource($id: String!, $data: UpdateResourceDto!) {\n        updateResource(id: $id, data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": types.UpdateResourceDocument,
+    "\n    mutation DeleteResource($id: String!) {\n        deleteResource(id: $id)\n    }\n": types.DeleteResourceDocument,
 };
 
 /**
@@ -64,6 +74,46 @@ export function gql(source: "\n    mutation CreateQuizResult($data: CreateQuizRe
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n    query GetQuizResults {\n        getQuizResults {\n            id\n            score\n            quiz {\n                id\n                name\n                # module {\n                #     id\n                #     name\n                # }\n            }\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    query GetQuizResults {\n        getQuizResults {\n            id\n            score\n            quiz {\n                id\n                name\n                # module {\n                #     id\n                #     name\n                # }\n            }\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query GetAllReservations {\n        getAllReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    query GetAllReservations {\n        getAllReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query GetMyReservations {\n        getMyReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    query GetMyReservations {\n        getMyReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation CreateReservation($data: CreateReservationDto!) {\n        createReservation(data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    mutation CreateReservation($data: CreateReservationDto!) {\n        createReservation(data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation UpdateReservation($id: String!, $data: UpdateReservationDto!) {\n        updateReservation(id: $id, data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    mutation UpdateReservation($id: String!, $data: UpdateReservationDto!) {\n        updateReservation(id: $id, data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation DeleteReservation($id: String!) {\n        deleteReservation(id: $id)\n    }\n"): (typeof documents)["\n    mutation DeleteReservation($id: String!) {\n        deleteReservation(id: $id)\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query GetAllResources {\n        getAllResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    query GetAllResources {\n        getAllResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query GetMyResources {\n        getMyResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    query GetMyResources {\n        getMyResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation CreateResource($data: CreateResourceDto!) {\n        createResource(data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    mutation CreateResource($data: CreateResourceDto!) {\n        createResource(data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation UpdateResource($id: String!, $data: UpdateResourceDto!) {\n        updateResource(id: $id, data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"): (typeof documents)["\n    mutation UpdateResource($id: String!, $data: UpdateResourceDto!) {\n        updateResource(id: $id, data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    mutation DeleteResource($id: String!) {\n        deleteResource(id: $id)\n    }\n"): (typeof documents)["\n    mutation DeleteResource($id: String!) {\n        deleteResource(id: $id)\n    }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

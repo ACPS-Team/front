@@ -1,9 +1,19 @@
 'use client'
 
-import { ArrowDownNarrowWide, ArrowUpNarrowWide, FileText, Plane, User, Users } from 'lucide-react'
+import {
+  ArrowDownNarrowWide,
+  ArrowUpNarrowWide,
+  Book,
+  Boxes,
+  File,
+  FileText,
+  GraduationCap,
+  Video
+} from 'lucide-react'
 import Link from 'next/link'
 import { useCallback, useMemo, useState } from 'react'
 
+import { ResourceType } from '@/__generated__/graphql'
 import { AuthGuard } from '@/components/AuthGuard'
 import Dashboard from '@/components/Dashboard'
 import { Button } from '@/components/ui/button'
@@ -17,63 +27,28 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { GET_MY_RESOURCES } from '@/http/requests/resource'
+import { useGraphQL } from '@/http/useGraphql'
 
 function Documents() {
-  const documents = useMemo(
-    () => [
-      {
-        id: 0,
-        title: 'Facture 1',
-        date: new Date().getTime() - 100000000,
-        link: 'https://www.google.com',
-        category: 'Finance'
-      },
-      {
-        id: 1,
-        title: 'Facture 2',
-        date: new Date().getTime(),
-        link: 'https://www.google.com',
-        category: 'Finance'
-      },
-      {
-        id: 2,
-        title: 'Facture 3',
-        date: new Date().getTime(),
-        link: 'https://www.google.com',
-        category: 'Finance'
-      },
-      {
-        id: 3,
-        title: 'Facture 4',
-        date: new Date().getTime(),
-        link: 'https://www.google.com',
-        category: 'Finance'
-      },
-      {
-        id: 4,
-        title: 'Permis',
-        date: new Date().getTime(),
-        link: 'https://www.google.com',
-        category: 'Administrative'
-      }
-    ],
-    []
-  )
+  const { data: resources, isLoading: resourcesLoading } = useGraphQL(GET_MY_RESOURCES)
 
   const [search, setSearch] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<'All' | 'Finance' | 'Administrative'>(
-    'All'
-  )
+  const [selectedCategory, setSelectedCategory] = useState<ResourceType | 'All'>('All')
   const [sortType, setSortType] = useState<'date:asc' | 'date:desc' | 'title:asc' | 'title:desc'>(
     'date:asc'
   )
 
   const getCategoryButtonLabel = useCallback(() => {
     switch (selectedCategory) {
-      case 'Administrative':
-        return 'Administrative'
-      case 'Finance':
-        return 'Finance'
+      case ResourceType.Diploma:
+        return 'Diplome'
+      case ResourceType.Document:
+        return 'Document'
+      case ResourceType.Invoice:
+        return 'Invoice'
+      case ResourceType.Tutorial:
+        return 'Tuto'
       default:
         return 'Tous'
     }
@@ -95,30 +70,32 @@ function Documents() {
   }, [sortType])
 
   const filteredDocuments = useMemo(() => {
-    const filtered = documents.filter(document => {
-      if (search.length > 0 && !document.title.toLowerCase().includes(search.toLowerCase())) {
+    const filtered = resources?.getMyResources.filter(resource => {
+      if (search.length > 0 && !resource.name.toLowerCase().includes(search.toLowerCase())) {
         return false
       }
-      if (selectedCategory !== 'All' && document.category !== selectedCategory) {
+      if (selectedCategory !== 'All' && resource.type !== selectedCategory) {
         return false
       }
       return true
     })
 
+    if (!filtered) return []
+
     if (sortType) {
       const [key, order] = sortType.split(':') as ['date' | 'title', 'asc' | 'desc']
       filtered.sort((a, b) => {
         if (key === 'date') {
-          return order === 'asc'
-            ? new Date(a[key]).getTime() - new Date(b[key]).getTime()
-            : new Date(b[key]).getTime() - new Date(a[key]).getTime()
+          const compare = order === 'asc' ? [a.createdAt, b.createdAt] : [b.createdAt, a.createdAt]
+          return new Date(compare[0]).getTime() - new Date(compare[1]).getTime()
         }
 
-        return order === 'asc' ? a[key].localeCompare(b[key]) : b[key].localeCompare(a[key])
+        const compare = order === 'asc' ? [a.name, b.name] : [b.name, a.name]
+        return compare[0].localeCompare(compare[1])
       })
     }
     return filtered
-  }, [documents, search, selectedCategory, sortType])
+  }, [resources, search, selectedCategory, sortType])
 
   return (
     <Dashboard
@@ -143,16 +120,24 @@ function Documents() {
               <DropdownMenuContent className="w-56">
                 <DropdownMenuGroup>
                   <DropdownMenuItem onClick={() => setSelectedCategory('All')}>
-                    <Users className="mr-2 h-4 w-4" />
+                    <Boxes className="mr-2 h-4 w-4" />
                     <span>Tous</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSelectedCategory('Finance')}>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Finance</span>
+                  <DropdownMenuItem onClick={() => setSelectedCategory(ResourceType.Diploma)}>
+                    <GraduationCap className="mr-2 h-4 w-4" />
+                    <span>Diplome</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSelectedCategory('Administrative')}>
-                    <Plane className="mr-2 h-4 w-4" />
-                    <span>Administratif</span>
+                  <DropdownMenuItem onClick={() => setSelectedCategory(ResourceType.Document)}>
+                    <Book className="mr-2 h-4 w-4" />
+                    <span>Document</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setSelectedCategory(ResourceType.Invoice)}>
+                    <File className="mr-2 h-4 w-4" />
+                    <span>Invoice</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setSelectedCategory(ResourceType.Tutorial)}>
+                    <Video className="mr-2 h-4 w-4" />
+                    <span>Tuto</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
@@ -192,26 +177,27 @@ function Documents() {
         </div>
       </div>
       <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-4 my-8">
-        {filteredDocuments.map(document => (
-          <Card key={document.id}>
-            <CardHeader className="flex flex-col items-center justify-center">
-              <FileText className="h-12 w-12" />
-            </CardHeader>
-            <CardContent className="grid">
-              <Link
-                target="_blank"
-                href={document.link}
-                className="underline text-sky-700 text-center"
-                rel="noopener noreferrer"
-              >
-                {document.title}
-              </Link>
-              <p className="text-right text-gray-300 text-sm mt-3">
-                {new Date(document.date).toLocaleDateString()}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+        {!resourcesLoading &&
+          filteredDocuments.map(resource => (
+            <Card key={resource.id}>
+              <CardHeader className="flex flex-col items-center justify-center">
+                <FileText className="h-12 w-12" />
+              </CardHeader>
+              <CardContent className="grid">
+                <Link
+                  target="_blank"
+                  href={resource.link}
+                  className="underline text-sky-700 text-center"
+                  rel="noopener noreferrer"
+                >
+                  {resource.name}
+                </Link>
+                <p className="text-right text-gray-300 text-sm mt-3">
+                  {new Date(resource.createdAt).toLocaleDateString()}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
       </div>
     </Dashboard>
   )
