@@ -52,13 +52,13 @@ export const states = [
     items: [
       {
         id: 'organisation',
-        link: 'organisation',
+        link: '/organisation',
         name: 'Trombinoscope',
         icon: <Users className="h-4 w-4" />
       },
       {
         id: 'documents',
-        link: 'documents',
+        link: '/documents',
         name: 'Documents',
         icon: <Files className="h-4 w-4" />
       }
