@@ -1,24 +1,18 @@
-import { addDays, format, subDays } from 'date-fns'
+import { format } from 'date-fns'
 
 import { Reservation } from '@/__generated__/graphql'
 
 interface CalendarProps {
   selectedDate: Date
-  setSelectedDate: (date: Date) => void
   reservations: Reservation[]
+  onSelectReservation: (reservation: Reservation) => void
 }
 
-export function DayView({ selectedDate, setSelectedDate, reservations }: Readonly<CalendarProps>) {
-  const nextDay = () => {
-    const newDate = addDays(selectedDate, 1)
-    setSelectedDate(newDate)
-  }
-
-  const prevDay = () => {
-    const newDate = subDays(selectedDate, 1)
-    setSelectedDate(newDate)
-  }
-
+export function DayView({
+  selectedDate,
+  reservations,
+  onSelectReservation
+}: Readonly<CalendarProps>) {
   const filteredReservations = reservations.filter(
     reservation =>
       format(new Date(reservation.startDate), 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd')
@@ -26,19 +20,14 @@ export function DayView({ selectedDate, setSelectedDate, reservations }: Readonl
 
   return (
     <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <button onClick={prevDay} className="text-xl font-semibold">
-          &lt;
-        </button>
-        <h2 className="text-2xl font-bold">{format(selectedDate, 'EEEE d MMMM yyyy')}</h2>
-        <button onClick={nextDay} className="text-xl font-semibold">
-          &gt;
-        </button>
-      </div>
       <div className="space-y-4">
         {filteredReservations.length > 0 ? (
           filteredReservations.map(reservation => (
-            <div key={reservation.id} className="bg-white shadow rounded-lg p-4">
+            <div
+              key={reservation.id}
+              className="bg-white shadow rounded-lg p-4 cursor-pointer"
+              onClick={() => onSelectReservation(reservation)}
+            >
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">
                   {format(new Date(reservation.startDate), 'HH:mm')} -

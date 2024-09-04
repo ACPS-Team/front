@@ -1,20 +1,22 @@
 'use client'
 
-import { addMonths, subMonths } from 'date-fns'
+import { addDays, format, subDays } from 'date-fns'
 import { useState } from 'react'
 
 import { Reservation } from '@/__generated__/graphql'
 import { AuthGuard } from '@/components/AuthGuard'
 import Dashboard from '@/components/Dashboard'
-import { Calendar } from '@/components/design/planning/Calendar'
+import { DialogNewReservation } from '@/components/design/dialog/NewReservation'
+import { DialogReservation } from '@/components/design/dialog/Reservation'
+import { PlanningAirplane } from '@/components/design/planning/Airplane'
 import { DayView } from '@/components/design/planning/DayView'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 function Planning() {
-  const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedReservation, setSelectedReservation] = useState(null)
+  const [isDialogNewReservationOpen, setIsDialogNewReservationOpen] = useState(false)
 
   const reservations = [
     {
@@ -42,8 +44,15 @@ function Planning() {
     }
   ]
 
-  const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1))
-  const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1))
+  const nextDay = () => {
+    const newDate = addDays(selectedDate, 1)
+    setSelectedDate(newDate)
+  }
+
+  const prevDay = () => {
+    const newDate = subDays(selectedDate, 1)
+    setSelectedDate(newDate)
+  }
 
   const handleSelectReservation = (reservation: any) => {
     setSelectedReservation(reservation)
@@ -62,9 +71,11 @@ function Planning() {
             <CardTitle>Envie d&apos;un vol ?</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={() => {}} className="flex flex-col items-center gap-4">
-              <Button size="sm">Réserver un vol</Button>
-            </form>
+            <div className="flex flex-col items-center gap-4">
+              <Button size="sm" onClick={() => setIsDialogNewReservationOpen(true)}>
+                Réserver un vol
+              </Button>
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -76,22 +87,39 @@ function Planning() {
           </CardContent>
         </Card>
       </div>
-      <Calendar
-        currentMonth={currentMonth}
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
+
+      <div className="flex justify-between items-center mb-16 mt-12">
+        <button onClick={prevDay} className="text-xl font-semibold">
+          &lt;
+        </button>
+        <h2 className="text-2xl font-bold">{format(selectedDate, 'EEEE d MMMM yyyy')}</h2>
+        <button onClick={nextDay} className="text-xl font-semibold">
+          &gt;
+        </button>
+      </div>
+
+      <PlanningAirplane
         reservations={reservations as unknown as Reservation[]}
-        handleSelectReservation={handleSelectReservation}
+        currentDay={selectedDate}
+        onSelectReservation={handleSelectReservation}
       />
 
       <div className="mt-16" />
 
       <DayView
         selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
         reservations={reservations as unknown as Reservation[]}
+        onSelectReservation={handleSelectReservation}
+      />
+
+      <DialogReservation
+        reservation={selectedReservation as unknown as Reservation}
+        onClose={() => setSelectedReservation(null)}
+      />
+
+      <DialogNewReservation
+        isOpen={isDialogNewReservationOpen}
+        onClose={() => setIsDialogNewReservationOpen(false)}
       />
     </Dashboard>
   )
