@@ -1,6 +1,5 @@
 'use client'
 
-import type { UserResource } from '@clerk/types'
 import {
   Book,
   File,
@@ -18,7 +17,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { TableCell, TableRow } from '@/components/ui/table'
 
-function Home({ user }: Readonly<{ user: UserResource }>) {
+function Home({ user }: Readonly<{ user: { id: string; firstName: string } }>) {
   const solde = 300
 
   return (

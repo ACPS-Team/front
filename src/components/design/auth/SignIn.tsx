@@ -1,6 +1,5 @@
 'use client'
 
-import { useSignIn } from '@clerk/clerk-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -10,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 export function SignIn() {
-  const { signIn, isLoaded } = useSignIn()
+  // const { signIn, isLoaded } = useSignIn()
   const [error, setError] = useState<string | null>(null)
 
   if (!isLoaded) {
