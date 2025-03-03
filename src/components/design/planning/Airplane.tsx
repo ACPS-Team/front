@@ -23,7 +23,15 @@ export function PlanningAirplane({
 
   const timeToX = (time: Date) => {
     const minutesSinceMidnight = time.getHours() * 60 + time.getMinutes()
-    return (minutesSinceMidnight / (24 * 60)) * 100
+    const startMinutes = 7 * 60 // 07:00
+    const endMinutes = 23 * 60 // 23:00
+    const totalMinutes = endMinutes - startMinutes
+    
+    // Clamp the time to our range
+    const clampedMinutes = Math.max(startMinutes, Math.min(endMinutes, minutesSinceMidnight))
+    
+    // Calculate percentage within our range
+    return ((clampedMinutes - startMinutes) / totalMinutes) * 100
   }
 
   return (
@@ -34,10 +42,10 @@ export function PlanningAirplane({
           <div className="flex-grow bg-muted rounded-r-md ml-2">
             <div className="relative h-full">
               <div className="absolute inset-0 flex">
-                {[0, 3, 6, 9, 12, 15, 18, 21].map(hour => (
+                {[7, 9, 11, 13, 15, 17, 19, 21, 23].map(hour => (
                   <div key={hour} className="flex-1 border-l border-gray-300 first:border-l-0">
                     <div className="absolute top-0 -ml-3 mt-1 text-xs text-muted-foreground">
-                      {hour > 0 && `${hour.toString().padStart(2, '0')}:00`}
+                      {`${hour.toString().padStart(2, '0')}:00`}
                     </div>
                   </div>
                 ))}

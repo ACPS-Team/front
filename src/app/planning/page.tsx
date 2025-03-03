@@ -3,7 +3,7 @@
 import { addDays, format, subDays } from 'date-fns'
 import { useState } from 'react'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 import { AuthGuard } from '@/components/AuthGuard'
 import Dashboard from '@/components/Dashboard'
 import { DialogNewReservation } from '@/components/design/dialog/NewReservation'
@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 function Planning() {
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [selectedReservation, setSelectedReservation] = useState(null)
+  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null)
   const [isDialogNewReservationOpen, setIsDialogNewReservationOpen] = useState(false)
 
   const reservations = [
@@ -54,7 +54,7 @@ function Planning() {
     setSelectedDate(newDate)
   }
 
-  const handleSelectReservation = (reservation: any) => {
+  const handleSelectReservation = (reservation: Reservation) => {
     setSelectedReservation(reservation)
   }
 
@@ -89,11 +89,11 @@ function Planning() {
       </div>
 
       <div className="flex justify-between items-center mb-16 mt-12">
-        <button onClick={prevDay} className="text-xl font-semibold">
+        <button type="button" onClick={prevDay} className="text-xl font-semibold">
           &lt;
         </button>
         <h2 className="text-2xl font-bold">{format(selectedDate, 'EEEE d MMMM yyyy')}</h2>
-        <button onClick={nextDay} className="text-xl font-semibold">
+        <button type="button" onClick={nextDay} className="text-xl font-semibold">
           &gt;
         </button>
       </div>
