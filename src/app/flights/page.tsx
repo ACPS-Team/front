@@ -68,6 +68,7 @@ function Flights() {
       />
 
       <DialogNewReservation
+        airplanes={["Cessna 172", "Piper PA-28", "Beechcraft Bonanza"]}
         isOpen={isDialogNewReservationOpen}
         onClose={() => setIsDialogNewReservationOpen(false)}
       />

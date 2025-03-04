@@ -3,18 +3,20 @@ import { addMinutes, isSameDay } from 'date-fns'
 import type { Reservation } from '@/__generated__/graphql'
 
 interface PlanningAirplaneProps {
+  airplanes: string[]
   reservations: Reservation[]
   currentDay: Date
   onSelectReservation: (reservation: Reservation) => void
+  onNewReservation: () => void
 }
 
 export function PlanningAirplane({
+  airplanes,
   reservations,
   currentDay,
-  onSelectReservation
+  onSelectReservation,
+  onNewReservation
 }: Readonly<PlanningAirplaneProps>) {
-  const airplanes = Array.from(new Set(reservations.map(r => r.airplane.name)))
-
   const getReservationsForDay = (airplane: Reservation['airplane']['name']) => {
     return reservations.filter(
       r => r.airplane.name === airplane && isSameDay(r.startDate, currentDay)
@@ -27,10 +29,8 @@ export function PlanningAirplane({
     const endMinutes = 23 * 60 // 23:00
     const totalMinutes = endMinutes - startMinutes
     
-    // Clamp the time to our range
     const clampedMinutes = Math.max(startMinutes, Math.min(endMinutes, minutesSinceMidnight))
     
-    // Calculate percentage within our range
     return ((clampedMinutes - startMinutes) / totalMinutes) * 100
   }
 
@@ -42,12 +42,18 @@ export function PlanningAirplane({
           <div className="flex-grow bg-muted rounded-r-md ml-2">
             <div className="relative h-full">
               <div className="absolute inset-0 flex">
-                {[7, 9, 11, 13, 15, 17, 19, 21, 23].map(hour => (
-                  <div key={hour} className="flex-1 border-l border-gray-300 first:border-l-0">
+                {[7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23].map(hour => (
+                  <button
+                    key={hour}
+                    type="button"
+                    className="flex-1 border-l border-gray-300 first:border-l-0 bg-transparent appearance-none"
+                    onClick={() => onNewReservation()}
+                    aria-label={`Nouvelle réservation à ${hour}:00`}
+                  >
                     <div className="absolute top-0 -ml-3 mt-1 text-xs text-muted-foreground">
                       {`${hour.toString().padStart(2, '0')}:00`}
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
               {getReservationsForDay(airplane).map(reservation => {
@@ -68,8 +74,7 @@ export function PlanningAirplane({
                     type="button"
                   >
                     <span className="px-1 truncate">
-                      {/* {reservation.user?.name || 'Réservé'} - {reservation.instructor.name} */}
-                      Jack - Daniel
+                      {reservation.user?.firstName} {reservation.user?.lastName.toUpperCase()}
                     </span>
                   </button>
                 )

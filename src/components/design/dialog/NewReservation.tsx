@@ -20,14 +20,17 @@ import {
 } from '@/components/ui/select'
 
 interface DialogNewReservationProps {
+  airplanes: string[]
   isOpen: boolean
   onClose: () => void
 }
 
-export function DialogNewReservation({ isOpen, onClose }: Readonly<DialogNewReservationProps>) {
+export function DialogNewReservation({ airplanes, isOpen, onClose }: Readonly<DialogNewReservationProps>) {
   const [newReservation, setNewReservation] = useState({
     instructorId: '',
-    airplaneId: ''
+    airplaneId: '',
+    flightType: '',
+    flightDuration: ''
   })
 
   const handleNewReservationChange = (key: string, value: string) => {
@@ -68,6 +71,18 @@ export function DialogNewReservation({ isOpen, onClose }: Readonly<DialogNewRese
             <Input id="flightDuration" type="time" defaultValue={'01:00'} />
           </div>
           <div className="space-y-2">
+            <Label htmlFor="flightType">Type de vol</Label>
+            <Select onValueChange={value => handleNewReservationChange('flightType', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sélectionnez un type de vol" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={'DC'}>Vol en DC avec instructeur</SelectItem>
+                <SelectItem value={'SOLO'}>Vol solo supervisé</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
             <Label htmlFor="instructor">Instructeur</Label>
             <Select onValueChange={value => handleNewReservationChange('instructorId', value)}>
               <SelectTrigger>
@@ -90,12 +105,11 @@ export function DialogNewReservation({ isOpen, onClose }: Readonly<DialogNewRese
                 <SelectValue placeholder="Sélectionnez un avion" />
               </SelectTrigger>
               <SelectContent>
-                {/* {airplanes.map(airplane => (
-                  <SelectItem key={airplane.id} value={airplane.id}>
-                    {airplane.name}
+                {airplanes.map(airplane => (
+                  <SelectItem key={airplane} value={airplane}>
+                    {airplane}
                   </SelectItem>
-                ))} */}
-                <SelectItem value={'SALUT'}>SALUT</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
