@@ -1,6 +1,6 @@
 import { addMinutes, isSameDay } from 'date-fns'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 
 interface PlanningAirplaneProps {
   reservations: Reservation[]
@@ -56,20 +56,22 @@ export function PlanningAirplane({
                 const width = endX - startX
 
                 return (
-                  <div
+                  <button
                     key={reservation.id}
-                    className="absolute top-0 bottom-0 bg-blue-500 text-white text-xs flex items-center justify-center overflow-hidden rounded-md cursor-pointer"
+                    className="absolute top-0 bottom-0 bg-blue-500 text-white text-xs flex items-center justify-center overflow-hidden rounded-md cursor-pointer border-0"
                     style={{
                       left: `${startX}%`,
                       width: `${width}%`
                     }}
                     onClick={() => onSelectReservation(reservation)}
+                    aria-label={`Réservation ${airplane}`}
+                    type="button"
                   >
                     <span className="px-1 truncate">
                       {/* {reservation.user?.name || 'Réservé'} - {reservation.instructor.name} */}
                       Jack - Daniel
                     </span>
-                  </div>
+                  </button>
                 )
               })}
             </div>

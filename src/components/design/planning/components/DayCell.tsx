@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 
 interface DayCellProps {
   day: Date

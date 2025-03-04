@@ -1,7 +1,7 @@
 import { addMinutes, format } from 'date-fns'
 import { Clock, Plane, User } from 'lucide-react'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,

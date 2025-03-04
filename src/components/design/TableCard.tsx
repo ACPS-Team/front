@@ -1,11 +1,12 @@
+import type { ReactNode } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 
 interface TableCardProps {
-  icon?: JSX.Element
+  icon?: ReactNode
   title: string
   headers: string[]
-  rows: JSX.Element
+  rows: ReactNode
   isLoaded?: boolean
   cardStyle?: string
 }

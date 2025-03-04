@@ -17,12 +17,10 @@ function makeQueryClient() {
 let browserQueryClient: QueryClient | undefined = undefined
 
 function getQueryClient() {
-  if (isServer) {
-    return makeQueryClient()
-  } else {
-    if (!browserQueryClient) browserQueryClient = makeQueryClient()
-    return browserQueryClient
-  }
+  if (isServer) return makeQueryClient()
+  
+  if (!browserQueryClient) browserQueryClient = makeQueryClient()
+  return browserQueryClient
 }
 
 const QueryClientWrapper = ({ children }: { children: React.ReactNode }) => {

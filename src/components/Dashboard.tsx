@@ -1,7 +1,7 @@
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 
-import { actualState } from '@/types/sidebar'
+import type { actualState } from '@/types/sidebar'
 
 import Sidebar from './design/sidebar/Sidebar'
 
@@ -37,10 +37,10 @@ export default function Dashboard({
         {!headerOptions?.disabled && (
           <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-muted/40 px-6">
             <h1 className="font-semibold text-lg">{headerOptions?.title}</h1>
-            <div className="flex flex-1 items-center gap-4 lg:ml-auto lg:gap-2 lg:gap-4">
+            <div className="flex flex-1 items-center gap-4 lg:ml-auto lg:gap-4">
               {headerOptions?.render}
             </div>
-            <button onClick={toggleMobileMenu} className="lg:hidden text-primary">
+            <button type="button" onClick={toggleMobileMenu} className="lg:hidden text-primary">
               <Menu className="h-6 w-6" />
             </button>
           </header>

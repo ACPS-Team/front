@@ -11,8 +11,38 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n  mutation LoginUser($data: LoginUserDto!) {\n    loginUser(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n": typeof types.LoginUserDocument,
+    "\n  mutation RegisterUser($data: RegisterUserDto!) {\n    registerUser(data: $data) {\n      id\n    }\n  }\n": typeof types.RegisterUserDocument,
+    "\n  mutation UpdatePassword($data: UpdatePasswordDto!) {\n    updatePassword(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n": typeof types.UpdatePasswordDocument,
+    "\n  mutation DeleteMyAccount {\n    deleteMyAccount\n  }\n": typeof types.DeleteMyAccountDocument,
+    "\n  mutation DeleteUser($id: String!) {\n    deleteUser(id: $id)\n  }\n": typeof types.DeleteUserDocument,
+    "\n    query GetAllQuizzes {\n        getQuizzes {\n            id\n            name\n        }\n    }\n": typeof types.GetAllQuizzesDocument,
+    "\n    query GetQuiz($id: String!) {\n        getQuiz(id: $id) {\n            id\n            name\n            # module {\n            #     id\n            #     name\n            # }\n            questions {\n                id\n                title\n                options\n            }\n        }\n    }\n": typeof types.GetQuizDocument,
+    "\n    mutation CreateQuiz($data: CreateQuizDto!) {\n        createQuiz(data: $data) {\n            id\n            name\n            # module {\n            #     id\n            #     name\n            # }\n            createdAt\n            updatedAt\n        }\n    }\n": typeof types.CreateQuizDocument,
+    "\n    mutation UpdateQuiz($id: String!, $data: UpdateQuizDto!) {\n        updateQuiz(id: $id, data: $data) {\n            id\n            name\n            # module {\n            #     id\n            #     name\n            # }\n            createdAt\n            updatedAt\n        }\n    }\n": typeof types.UpdateQuizDocument,
+    "\n    mutation DeleteQuiz($id: String!) {\n        deleteQuiz(id: $id)\n    }\n": typeof types.DeleteQuizDocument,
+    "\n    mutation CreateQuizResult($data: CreateQuizResultDto!) {\n        createQuizResult(data: $data) {\n            id\n            score\n            quiz {\n                id\n                name\n            }\n        }\n    }\n": typeof types.CreateQuizResultDocument,
+    "\n    query GetQuizResults {\n        getQuizResults {\n            id\n            score\n            quiz {\n                id\n                name\n                # module {\n                #     id\n                #     name\n                # }\n            }\n            createdAt\n        }\n    }\n": typeof types.GetQuizResultsDocument,
+    "\n    query GetAllReservations {\n        getAllReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": typeof types.GetAllReservationsDocument,
+    "\n    query GetMyReservations {\n        getMyReservations {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": typeof types.GetMyReservationsDocument,
+    "\n    mutation CreateReservation($data: CreateReservationDto!) {\n        createReservation(data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": typeof types.CreateReservationDocument,
+    "\n    mutation UpdateReservation($id: String!, $data: UpdateReservationDto!) {\n        updateReservation(id: $id, data: $data) {\n            id\n            startDate\n            duration\n            flightDuration\n            # user {\n            #     id\n            #     name\n            # }\n            # instructor {\n            #     id\n            #     name\n            # }\n            airplane {\n                id\n                name\n            }\n            createdAt\n        }\n    }\n": typeof types.UpdateReservationDocument,
+    "\n    mutation DeleteReservation($id: String!) {\n        deleteReservation(id: $id)\n    }\n": typeof types.DeleteReservationDocument,
+    "\n    query GetAllResources {\n        getAllResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": typeof types.GetAllResourcesDocument,
+    "\n    query GetMyResources {\n        getMyResources {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": typeof types.GetMyResourcesDocument,
+    "\n    mutation CreateResource($data: CreateResourceDto!) {\n        createResource(data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": typeof types.CreateResourceDocument,
+    "\n    mutation UpdateResource($id: String!, $data: UpdateResourceDto!) {\n        updateResource(id: $id, data: $data) {\n            id\n            name\n            type\n            link\n            createdAt\n        }\n    }\n": typeof types.UpdateResourceDocument,
+    "\n    mutation DeleteResource($id: String!) {\n        deleteResource(id: $id)\n    }\n": typeof types.DeleteResourceDocument,
+};
+const documents: Documents = {
+    "\n  mutation LoginUser($data: LoginUserDto!) {\n    loginUser(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n": types.LoginUserDocument,
+    "\n  mutation RegisterUser($data: RegisterUserDto!) {\n    registerUser(data: $data) {\n      id\n    }\n  }\n": types.RegisterUserDocument,
+    "\n  mutation UpdatePassword($data: UpdatePasswordDto!) {\n    updatePassword(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n": types.UpdatePasswordDocument,
+    "\n  mutation DeleteMyAccount {\n    deleteMyAccount\n  }\n": types.DeleteMyAccountDocument,
+    "\n  mutation DeleteUser($id: String!) {\n    deleteUser(id: $id)\n  }\n": types.DeleteUserDocument,
     "\n    query GetAllQuizzes {\n        getQuizzes {\n            id\n            name\n        }\n    }\n": types.GetAllQuizzesDocument,
     "\n    query GetQuiz($id: String!) {\n        getQuiz(id: $id) {\n            id\n            name\n            # module {\n            #     id\n            #     name\n            # }\n            questions {\n                id\n                title\n                options\n            }\n        }\n    }\n": types.GetQuizDocument,
     "\n    mutation CreateQuiz($data: CreateQuizDto!) {\n        createQuiz(data: $data) {\n            id\n            name\n            # module {\n            #     id\n            #     name\n            # }\n            createdAt\n            updatedAt\n        }\n    }\n": types.CreateQuizDocument,
@@ -46,6 +76,26 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation LoginUser($data: LoginUserDto!) {\n    loginUser(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation LoginUser($data: LoginUserDto!) {\n    loginUser(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation RegisterUser($data: RegisterUserDto!) {\n    registerUser(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation RegisterUser($data: RegisterUserDto!) {\n    registerUser(data: $data) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdatePassword($data: UpdatePasswordDto!) {\n    updatePassword(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdatePassword($data: UpdatePasswordDto!) {\n    updatePassword(data: $data) {\n      token\n      user {\n        id\n        email\n        firstName\n        lastName\n        birthDate\n        birthPlace\n        nationality\n        role\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation DeleteMyAccount {\n    deleteMyAccount\n  }\n"): (typeof documents)["\n  mutation DeleteMyAccount {\n    deleteMyAccount\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation DeleteUser($id: String!) {\n    deleteUser(id: $id)\n  }\n"): (typeof documents)["\n  mutation DeleteUser($id: String!) {\n    deleteUser(id: $id)\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

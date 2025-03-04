@@ -1,6 +1,5 @@
 'use client'
 
-import type { UserResource } from '@clerk/types'
 import { PhoneCall } from 'lucide-react'
 import Image from 'next/image'
 
@@ -11,7 +10,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TableCell, TableRow } from '@/components/ui/table'
 
-function Settings({ user }: Readonly<{ user: UserResource }>) {
+function Settings({ user }: Readonly<{ user: {
+  firstName: string
+  lastName: string
+  imageUrl: string
+  hasImage: boolean
+} }>) {
   return (
     <Dashboard
       actualState="settings"

@@ -1,7 +1,8 @@
 import { PlaneIcon, Settings, X } from 'lucide-react'
 import Link from 'next/link'
 
-import { actualState, states } from '@/types/sidebar'
+import type { actualState } from '@/types/sidebar'
+import { states } from '@/types/sidebar'
 
 interface SidebarProps {
   actualState: actualState
@@ -38,12 +39,11 @@ export default function Sidebar({
                     <Link
                       key={item.id}
                       href={item.link}
-                      className={
-                        'flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ' +
-                        (actualState === item.id
-                          ? 'bg-muted text-primary border-l-4 border-primary '
-                          : 'text-muted-foreground')
-                      }
+                      className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
+                        actualState === item.id
+                          ? 'bg-muted text-primary border-l-4 border-primary'
+                          : 'text-muted-foreground'
+                      }`}
                       prefetch={false}
                     >
                       {item.icon}
@@ -59,12 +59,11 @@ export default function Sidebar({
             <div>
               <Link
                 href="/settings"
-                className={
-                  'flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ' +
-                  (actualState === 'settings'
-                    ? 'bg-muted text-primary border-l-4 border-primary '
-                    : 'text-muted-foreground')
-                }
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
+                  actualState === 'settings'
+                    ? 'bg-muted text-primary border-l-4 border-primary'
+                    : 'text-muted-foreground'
+                }`}
                 prefetch={false}
               >
                 <Settings className="h-4 w-4" />

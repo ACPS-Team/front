@@ -29,6 +29,12 @@ export type Airplane = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type Auth = {
+  __typename?: 'Auth';
+  token: Scalars['String']['output'];
+  user: UserModel;
+};
+
 export type CreateAirplaneDto = {
   name: Scalars['String']['input'];
   serialNumber: Scalars['String']['input'];
@@ -92,6 +98,11 @@ export type Incident = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type LoginUserDto = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
 export type Maintenance = {
   __typename?: 'Maintenance';
   airplane: Airplane;
@@ -114,15 +125,22 @@ export type Mutation = {
   deleteAirplane: Scalars['Boolean']['output'];
   deleteIncident: Scalars['Boolean']['output'];
   deleteMaintenance: Scalars['Boolean']['output'];
+  deleteMyAccount: Scalars['Boolean']['output'];
   deleteQuiz: Scalars['Boolean']['output'];
   deleteReservation: Scalars['Boolean']['output'];
   deleteResource: Scalars['Boolean']['output'];
+  deleteUser: Scalars['Boolean']['output'];
+  loginUser: Auth;
+  registerUser: RegisterUser;
   updateAirplane: Airplane;
   updateIncident: Incident;
   updateMaintenance: Maintenance;
+  updateMe: User;
+  updatePassword: Auth;
   updateQuiz: Quiz;
   updateReservation: Reservation;
   updateResource: Resource;
+  updateUser: User;
 };
 
 
@@ -191,6 +209,21 @@ export type MutationDeleteResourceArgs = {
 };
 
 
+export type MutationDeleteUserArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationLoginUserArgs = {
+  data: LoginUserDto;
+};
+
+
+export type MutationRegisterUserArgs = {
+  data: RegisterUserDto;
+};
+
+
 export type MutationUpdateAirplaneArgs = {
   data: UpdateAirplaneDto;
   id: Scalars['String']['input'];
@@ -206,6 +239,11 @@ export type MutationUpdateIncidentArgs = {
 export type MutationUpdateMaintenanceArgs = {
   data: UpdateMaintenanceDto;
   id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdatePasswordArgs = {
+  data: UpdatePasswordDto;
 };
 
 
@@ -226,6 +264,11 @@ export type MutationUpdateResourceArgs = {
   id: Scalars['String']['input'];
 };
 
+
+export type MutationUpdateUserArgs = {
+  id: Scalars['String']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   getAirplaneById: Airplane;
@@ -236,11 +279,14 @@ export type Query = {
   getAllResources: Array<Resource>;
   getIncidentsByAirplaneId: Array<Incident>;
   getMaintenancesByAirplaneId: Array<Maintenance>;
+  getMe: User;
   getMyReservations: Array<Reservation>;
   getMyResources: Array<Resource>;
   getQuiz: QuizWithQuestion;
   getQuizResults: Array<QuizResult>;
   getQuizzes: Array<Quiz>;
+  getUser: User;
+  getUsers: Array<User>;
 };
 
 
@@ -270,6 +316,11 @@ export type QueryGetMyReservationsArgs = {
 
 
 export type QueryGetQuizArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetUserArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -303,6 +354,21 @@ export type QuizWithQuestion = {
   name: Scalars['String']['output'];
   questions: Array<QuizQuestion>;
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type RegisterUser = {
+  __typename?: 'RegisterUser';
+  id: Scalars['ID']['output'];
+};
+
+export type RegisterUserDto = {
+  birthDate: Scalars['DateTime']['input'];
+  birthPlace: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  nationality: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Reservation = {
@@ -352,6 +418,10 @@ export type UpdateMaintenanceDto = {
   maintenanceDate?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type UpdatePasswordDto = {
+  password: Scalars['String']['input'];
+};
+
 export type UpdateQuizDto = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
@@ -371,6 +441,72 @@ export type UpdateResourceDto = {
   type?: InputMaybe<ResourceType>;
   userId?: InputMaybe<Scalars['ID']['input']>;
 };
+
+export type User = {
+  __typename?: 'User';
+  UserAddress: UserAddress;
+  birthDate: Scalars['DateTime']['output'];
+  birthPlace: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+  nationality: Scalars['String']['output'];
+  phoneNumbers: Array<Scalars['String']['output']>;
+};
+
+export type UserAddress = {
+  __typename?: 'UserAddress';
+  address: Scalars['String']['output'];
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  postCode: Scalars['String']['output'];
+};
+
+export type UserModel = {
+  __typename?: 'UserModel';
+  birthDate: Scalars['String']['output'];
+  birthPlace: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+  nationality: Scalars['String']['output'];
+  role: Scalars['String']['output'];
+};
+
+export type LoginUserMutationVariables = Exact<{
+  data: LoginUserDto;
+}>;
+
+
+export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'Auth', token: string, user: { __typename?: 'UserModel', id: string, email: string, firstName: string, lastName: string, birthDate: string, birthPlace: string, nationality: string, role: string } } };
+
+export type RegisterUserMutationVariables = Exact<{
+  data: RegisterUserDto;
+}>;
+
+
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'RegisterUser', id: string } };
+
+export type UpdatePasswordMutationVariables = Exact<{
+  data: UpdatePasswordDto;
+}>;
+
+
+export type UpdatePasswordMutation = { __typename?: 'Mutation', updatePassword: { __typename?: 'Auth', token: string, user: { __typename?: 'UserModel', id: string, email: string, firstName: string, lastName: string, birthDate: string, birthPlace: string, nationality: string, role: string } } };
+
+export type DeleteMyAccountMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DeleteMyAccountMutation = { __typename?: 'Mutation', deleteMyAccount: boolean };
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean };
 
 export type GetAllQuizzesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -483,6 +619,11 @@ export type DeleteResourceMutationVariables = Exact<{
 export type DeleteResourceMutation = { __typename?: 'Mutation', deleteResource: boolean };
 
 
+export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginUserDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"birthPlace"}},{"kind":"Field","name":{"kind":"Name","value":"nationality"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}}]}}]} as unknown as DocumentNode<LoginUserMutation, LoginUserMutationVariables>;
+export const RegisterUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RegisterUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RegisterUserDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"registerUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<RegisterUserMutation, RegisterUserMutationVariables>;
+export const UpdatePasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePasswordDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"birthDate"}},{"kind":"Field","name":{"kind":"Name","value":"birthPlace"}},{"kind":"Field","name":{"kind":"Name","value":"nationality"}},{"kind":"Field","name":{"kind":"Name","value":"role"}}]}}]}}]}}]} as unknown as DocumentNode<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
+export const DeleteMyAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteMyAccount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteMyAccount"}}]}}]} as unknown as DocumentNode<DeleteMyAccountMutation, DeleteMyAccountMutationVariables>;
+export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}]}}]} as unknown as DocumentNode<DeleteUserMutation, DeleteUserMutationVariables>;
 export const GetAllQuizzesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getQuizzes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetAllQuizzesQuery, GetAllQuizzesQueryVariables>;
 export const GetQuizDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetQuiz"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getQuiz"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"questions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"options"}}]}}]}}]}}]} as unknown as DocumentNode<GetQuizQuery, GetQuizQueryVariables>;
 export const CreateQuizDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateQuiz"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateQuizDto"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createQuiz"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<CreateQuizMutation, CreateQuizMutationVariables>;

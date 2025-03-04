@@ -1,4 +1,4 @@
-import { type TypedDocumentNode } from '@graphql-typed-document-node/core'
+import type { TypedDocumentNode } from '@graphql-typed-document-node/core'
 import { useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { print } from 'graphql'
 
@@ -6,7 +6,12 @@ import api from './api'
 
 interface GraphQLResponse<TResult> {
   data: TResult
-  errors?: any[]
+  errors?: Array<{
+    message: string;
+    locations?: Array<{ line: number; column: number }>;
+    path?: string[];
+    extensions?: Record<string, unknown>;
+  }>
 }
 
 export function useGraphQL<TResult, TVariables>(
@@ -14,7 +19,7 @@ export function useGraphQL<TResult, TVariables>(
   variables?: TVariables
 ): UseQueryResult<TResult> {
   return useQuery({
-    queryKey: [(document.definitions[0] as any).name.value, variables],
+    queryKey: [(document.definitions[0] as { name: { value: string } }).name.value, variables],
     queryFn: async () => {
       try {
         const response = await api.post<GraphQLResponse<TResult>>('/graphql', {

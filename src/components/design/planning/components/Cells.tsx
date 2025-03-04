@@ -12,7 +12,7 @@ import {
 } from 'date-fns'
 import { useMemo } from 'react'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 
 import { DayCell } from './DayCell'
 

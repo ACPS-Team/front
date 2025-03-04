@@ -1,4 +1,4 @@
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 
 import { PlanningCells } from './components/Cells'
 import { PlanningDays } from './components/Days'

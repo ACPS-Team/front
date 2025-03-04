@@ -25,7 +25,7 @@ function Quizzes() {
             <TableCell>{quiz.name}</TableCell>
             <TableCell>WIP</TableCell>
           </TableRow>
-        )) ?? <TableRow></TableRow>}
+        )) ?? <TableRow />}
       </>
     ),
     [quizzes]

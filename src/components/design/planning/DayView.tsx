@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 
-import { Reservation } from '@/__generated__/graphql'
+import type { Reservation } from '@/__generated__/graphql'
 
 interface CalendarProps {
   selectedDate: Date
@@ -23,10 +23,12 @@ export function DayView({
       <div className="space-y-4">
         {filteredReservations.length > 0 ? (
           filteredReservations.map(reservation => (
-            <div
+            <button
               key={reservation.id}
-              className="bg-white shadow rounded-lg p-4 cursor-pointer"
+              className="bg-white shadow rounded-lg p-4 cursor-pointer w-full text-left border-0"
               onClick={() => onSelectReservation(reservation)}
+              type="button"
+              aria-label={`Réservation ${format(new Date(reservation.startDate), 'HH:mm')}`}
             >
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">
@@ -53,7 +55,7 @@ export function DayView({
                   </p>
                 )} */}
               </div>
-            </div>
+            </button>
           ))
         ) : (
           <p className="text-center text-gray-500">Aucune réservation pour ce jour.</p>
