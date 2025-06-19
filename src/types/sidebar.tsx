@@ -1,4 +1,4 @@
-import { Book, Calendar, Euro, FileQuestion, Files, Home, PlaneTakeoff, Users } from 'lucide-react'
+import { Book, Calendar, Euro, FileQuestion, Files, Home, Plane, PlaneLandingIcon, PlaneTakeoff, Users } from 'lucide-react'
 
 export type actualState =
   | 'dashboard'
@@ -44,7 +44,14 @@ export const states = [
         link: '/quizzes',
         name: 'Quizzes',
         icon: <FileQuestion className="h-4 w-4" />
+      },
+      {
+        id: 'planes',
+        link: '/plane',
+        name: 'Avions',
+        icon: <Plane className="h-4 w-4" />
       }
+
     ]
   },
   {

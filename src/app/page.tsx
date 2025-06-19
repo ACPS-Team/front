@@ -27,7 +27,10 @@ function Home({ user }: Readonly<{ user: { id: string; firstName: string } }>) {
         title: 'Tableau de bord'
       }}
     >
-      <h1 className="text-3xl font-semibold mb-6 mt-2">Bienvenue, {user.firstName}</h1>
+      <h1 className="text-3xl font-semibold mb-2 mt-2">Bienvenue, {user.firstName}</h1>
+      <p className="text-sm text-gray-600 mb-6">
+        Vous êtes inscrit à l&apos;aéro club Paris sud en tant que "Membre Pilote" jusqu&apos;au 31 décembre 2025.
+      </p>
       <div className="flex w-[100%] justify-between">
         <div className="flex flex-col gap-8 sm:grid sm:grid-cols-2 w-full lg:w-[70%]">
           <Card

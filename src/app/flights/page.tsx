@@ -55,15 +55,15 @@ function Flights() {
       <TableCard
         icon={<Plane />}
         title="Mes vols à venir / en cours"
-        headers={['Date', 'Heure', 'Départ', 'Arrivée']}
-        rows={<p>test</p>}
+        headers={['Date', 'Immat', 'Type', 'FI', 'Commentaire', 'Att', 'Sep (Cdt/PIC)', 'SEP(DC/Dual)']}
+        rows={<p>Aucune donnée disponible</p>}
         isLoaded
       />
       <TableCard
         icon={<Plane />}
         title="Mes vols passés"
-        headers={['Date', 'Heure', 'Départ', 'Arrivée']}
-        rows={<p>test</p>}
+        headers={['Date', 'Immat', 'Type', 'FI', 'Commentaire', 'Att', 'Sep (Cdt/PIC)', 'SEP(DC/Dual)']}
+        rows={<p>Aucune donnée disponible</p>}
         isLoaded
       />
 

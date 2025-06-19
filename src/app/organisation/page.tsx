@@ -46,6 +46,34 @@ function Organisation() {
       lastName: 'Pack',
       email: 'a@a.a',
       group: 'Pilotes'
+    },
+    {
+      id: 4,
+      firstName: 'Alice',
+      lastName: 'Smith',
+      email: 'a@a.a',
+      group: 'Mécanicien'
+    },
+    {
+      id: 5,
+      firstName: 'Bob',
+      lastName: 'Brown',
+      email: 'a@a.a',
+      group: 'FI'
+    },
+    {
+      id: 6,
+      firstName: 'Charlie',
+      lastName: 'Johnson',
+      email: 'a@a.a',
+      group: 'Eleves'
+    },
+    {
+      id: 7,
+      firstName: 'Diana',
+      lastName: 'White',
+      email: 'a@a.a',
+      group: 'Breveté'
     }
   ]
 
@@ -58,6 +86,14 @@ function Organisation() {
         return 'Administrateurs'
       case 'Pilotes':
         return 'Pilotes'
+      case 'Mécanicien':
+        return 'Mécanicien'
+      case 'FI':
+        return 'FI'
+      case 'Eleves':
+        return 'Eleves'
+      case 'Breveté':
+        return 'Breveté'
       default:
         return 'Tous'
     }
@@ -95,6 +131,22 @@ function Organisation() {
                 <DropdownMenuItem onClick={() => setSelectedGroup('Pilotes')}>
                   <Plane className="mr-2 h-4 w-4" />
                   <span>Pilotes</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedGroup('Mécanicien')}>
+                  <Plane className="mr-2 h-4 w-4" />
+                  <span>Mécanicien</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedGroup('FI')}>
+                  <Plane className="mr-2 h-4 w-4" />
+                  <span>FI</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedGroup('Eleves')}>
+                  <Plane className="mr-2 h-4 w-4" />
+                  <span>Elèves</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedGroup('Breveté')}>
+                  <Plane className="mr-2 h-4 w-4" />
+                  <span>Breveté</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
