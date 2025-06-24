@@ -47,7 +47,7 @@ export const states = [
       },
       {
         id: 'planes',
-        link: '/plane',
+        link: '/planes',
         name: 'Avions',
         icon: <Plane className="h-4 w-4" />
       }
